@@ -1,42 +1,35 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Métrique</title>
+    <meta charset="UTF-8">
+    <title>Histogramme des Températures</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  </head>
-  <body>
-    <div id="chart_div"></div>
-    <script>
-      google.charts.load('current', { packages: ['corechart'] });
-      google.charts.setOnLoadCallback(drawBackgroundColor);
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
 
-      function drawChart(data) {
-        var dataTable = new google.visualization.DataTable();
-        dataTable.addColumn('string', 'Date');
-        dataTable.addColumn('number', 'Température');
+      google.charts.setOnLoadCallback(drawChart);
 
-        data.results.forEach(entry => {
-          var date = new Date(entry.Jour * 1000);
-          dataTable.addRow([date.toLocaleDateString(), entry.temp]);
-        });
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Jour', 'Température'],
+          ['Jour 1', 22],
+          ['Jour 2', 24],
+          ['Jour 3', 19],
+          // Ajoutez plus de données ici
+        ]);
 
         var options = {
-          title: 'Évolution des températures de Paris pour les 16 prochains jours',
-          hAxis: { title: 'Date' },
-          vAxis: { title: 'Température' },
-          legend: 'none'
+          title: 'Températures sur 16 jours à Paris',
+          hAxis: {title: 'Jour',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        chart.draw(dataTable, options);
+        chart.draw(data, options);
       }
-
-      fetch('/paris/')
-        .then(response => response.json())
-        .then(data => {
-          drawChart(data);
-        });
     </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 100%; height: 500px;"></div>
   </body>
 </html>
-

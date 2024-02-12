@@ -10,14 +10,7 @@ app = Flask(__name__) #Hello World !
 @app.route("/contact/")
 def MaPremiereAPI():
     return "<h2>Ma page de contact</h2>"
-                                                                                                                                       
-@app.route('/')
-def hello_world():
-    return render_template('hello.html')
-  
-if __name__ == "__main__":
-  app.run(debug=True)
-  
+
 @app.route('/paris/')
 def meteo():
     response = urlopen('https://api.openweathermap.org/data/2.5/forecast/daily?q=Paris,fr&cnt=16&appid=bd5e378503939ddaee76f12ad7a97608')
@@ -33,3 +26,10 @@ def meteo():
 @app.route("/rapport/")
 def mongraphique():
     return render_template("graphique.html")
+                                                                                                                                       
+@app.route('/')
+def hello_world():
+    return render_template('hello.html')
+  
+if __name__ == "__main__":
+  app.run(debug=True)

@@ -35,10 +35,6 @@ def hello_world():
 def monhistogramme():
     return render_template("histogramme.html")
 
-@app.route("/test/")
-def moncommits():
-    return render_template("test.html")
-
 @app.route("/commits/")
 def moncommits():
     return render_template("commits.html")
